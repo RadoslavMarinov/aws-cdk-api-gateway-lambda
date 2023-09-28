@@ -32,5 +32,5 @@ jobs:
           cache: 'npm'
           cache-dependency-path: ./api/package-lock.json
       - name: install modules
-        working-directory: ./api
+        working-directory: ${{ env.working-directory}}
         run: npm ci
