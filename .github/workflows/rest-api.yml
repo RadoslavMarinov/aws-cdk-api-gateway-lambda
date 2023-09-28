@@ -46,6 +46,7 @@ jobs:
           echo "The run id is: $GITHUB_RUN_ID"
           echo "Github reporOwnder ${{ github.repository_owner }}"
           echo "${{ env.working-directory }}"
+          npm run cdk deploy
 
           
 
