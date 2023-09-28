@@ -34,15 +34,18 @@ jobs:
       - name: install modules
         working-directory: ${{ env.working-directory }}
         run: npm ci
-      - name: Synth
-        working-directory: ${{ env.working-directory }}
-        run: npm run cdk synth
+      # - name: Synth
+      #   working-directory: ${{ env.working-directory }}
+      #   run: npm run cdk synth
       - name: Deploy
         working-directory: ${{ env.working-directory }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          echo ${AWS_ACCESS_KEY_ID}
+          echo "The run id is: $GITHUB_RUN_ID"
+          echo "Github reporOwnder ${{ github.repository_owner }}"
+          echo "${{ env.working-directory }}"
 
           
 
