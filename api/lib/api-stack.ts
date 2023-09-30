@@ -18,7 +18,7 @@ export class ApiStack extends cdk.Stack {
     api.root.addMethod('GET')
     const customerResource = api.root.addResource('customers')
 
-    const lambdaEntryPoint = path.join(__dirname, `/lambda-handlers/customers/index.ts`)
+    const lambdaEntryPoint = path.join(__dirname, `/lambda-handlers/customers/get-all-customers.lambda.ts`)
     const lambdaHandler = new NodejsFunction(this, 'my-function', {
       memorySize: 1024,
       timeout: cdk.Duration.seconds(5),
