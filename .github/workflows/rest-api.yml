@@ -6,7 +6,7 @@ on:
       - main
 jobs:
 
-  Unit-Tests:
+  Unit-Tests-Infra:
     name: "Test Infra"
     runs-on: ubuntu-latest
     env:
@@ -21,14 +21,32 @@ jobs:
       - name: install modules
         working-directory: ${{ env.working-directory }}
         run: npm ci
-      - name: test infra
+      - name: test
         working-directory: ${{ env.working-directory }}
-        run: npm test
-      
+        run: npm run test:unit:infra
+    
+  Unit-Tests-App:
+    name: "Test App"
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./api
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
+          cache-dependency-path: ./api/package-lock.json
+      - name: install modules
+        working-directory: ${{ env.working-directory }}
+        run: npm ci
+      - name: test
+        working-directory: ${{ env.working-directory }}
+        run: npm run test:unit:app
 
   Deploy-Stage:
     name: "Deployment Staging Environment"
-    needs: Unit-Tests
+    needs: [Unit-Tests-Infra, Unit-Tests-App]
     runs-on: ubuntu-latest
     env:
       working-directory: ./api
