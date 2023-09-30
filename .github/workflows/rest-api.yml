@@ -45,7 +45,7 @@ jobs:
         run: npm run test:unit:app
 
   Deploy-Stage:
-    name: "Deployment Staging Environment"
+    name: "Deployment Stage"
     needs: [Unit-Tests-Infra, Unit-Tests-App]
     runs-on: ubuntu-latest
     env:
