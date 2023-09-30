@@ -1,10 +1,8 @@
 import { Resource } from "../../../shared/interfaces/Resource.interfaces";
 import { Booking } from "../../Booking/interfaces/Booking.interfaces";
 
-export interface Customer extends Resource{
-  id: string|number;
+export interface Car extends Resource {
   name: string;
-  age?: number;
-  address?: string;
-  bookings?: Booking[]
+  model: string;
+  bookings?:Booking[]
 }
