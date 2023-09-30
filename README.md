@@ -17,6 +17,9 @@
   * **(Optional)** `cdk synth`
   * Deploy `cdk deploy`
 
+## [Test Endpoins](https://preef9sri7.execute-api.eu-west-2.amazonaws.com/prod)
+  - [Get all Customers](https://preef9sri7.execute-api.eu-west-2.amazonaws.com/prod/customers)
+
 ## [Turorial](https://docs.aws.amazon.com/cdk/v2/guide/serverless_example.html)
 
 <!--  -->
