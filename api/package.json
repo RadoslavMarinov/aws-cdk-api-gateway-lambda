@@ -8,6 +8,7 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
+    "typecheck": "tsc --noEmit",
     "test:unit:infra": "jest --config=jest.config.infra.js",
     "test:unit:app": "jest --config=jest.config.app.js",
     "cdk": "cdk"

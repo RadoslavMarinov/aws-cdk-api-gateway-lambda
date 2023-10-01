@@ -29,10 +29,12 @@ export class ApiStack extends cdk.Stack {
 
     customerResource.addMethod('GET', new apigateway.LambdaIntegration(lambdaHandler))
     // The code that defines your stack goes here
+ 
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'ApiQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    new cdk.CfnOutput(this,"apiUrl",{
+      value: api.url,
+      exportName: "apiUrl",
+      description: "Rent A Car api url"
+    })
   }
 }
