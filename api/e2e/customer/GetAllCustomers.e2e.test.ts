@@ -23,6 +23,7 @@ describe("Get All customers API endpoint", () => {
 
     const cfnClient = new CloudFormationClient({
       credentials: credential,
+      region: "eu-west-2",
     });
 
     const command = new ListExportsCommand({});
