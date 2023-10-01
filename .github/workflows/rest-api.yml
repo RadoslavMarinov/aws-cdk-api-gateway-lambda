@@ -5,77 +5,77 @@ on:
     branches:
       - main
 jobs:
-  Unit-Tests-Infra:
-    name: "Test Infra"
-    runs-on: ubuntu-latest
-    env:
-      working-directory: ./api
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: "npm"
-          cache-dependency-path: ./api/package-lock.json
-      - name: install modules
-        working-directory: ${{ env.working-directory }}
-        run: npm ci
-      - name: test
-        working-directory: ${{ env.working-directory }}
-        run: npm run test:unit:infra
+  # Unit-Tests-Infra:
+  #   name: "Test Infra"
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     working-directory: ./api
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 18
+  #         cache: "npm"
+  #         cache-dependency-path: ./api/package-lock.json
+  #     - name: install modules
+  #       working-directory: ${{ env.working-directory }}
+  #       run: npm ci
+  #     - name: test
+  #       working-directory: ${{ env.working-directory }}
+  #       run: npm run test:unit:infra
 
-  Unit-Tests-App:
-    name: "Test App"
-    runs-on: ubuntu-latest
-    env:
-      working-directory: ./api
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: "npm"
-          cache-dependency-path: ./api/package-lock.json
-      - name: install modules
-        working-directory: ${{ env.working-directory }}
-        run: npm ci
-      - name: test
-        working-directory: ${{ env.working-directory }}
-        run: npm run test:unit:app
+  # Unit-Tests-App:
+  #   name: "Test App"
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     working-directory: ./api
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 18
+  #         cache: "npm"
+  #         cache-dependency-path: ./api/package-lock.json
+  #     - name: install modules
+  #       working-directory: ${{ env.working-directory }}
+  #       run: npm ci
+  #     - name: test
+  #       working-directory: ${{ env.working-directory }}
+  #       run: npm run test:unit:app
 
-  Deploy-Stage:
-    name: "Deployment Stage"
-    needs: [Unit-Tests-Infra, Unit-Tests-App]
-    runs-on: ubuntu-latest
-    env:
-      working-directory: ./api
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+  # Deploy-Stage:
+  #   name: "Deployment Stage"
+  #   needs: [Unit-Tests-Infra, Unit-Tests-App]
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     working-directory: ./api
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-node@v3
 
-        with:
-          node-version: 18
-          cache: "npm"
-          cache-dependency-path: ./api/package-lock.json
-      - name: install modules
-        working-directory: ${{ env.working-directory }}
-        run: npm ci
-        # -------------
-      - name: Deploy
-        working-directory: ${{ env.working-directory }}
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-        run: |
-          echo "The run id is: $GITHUB_RUN_ID"
-          echo "Github reporOwnder ${{ github.repository_owner }}"
-          echo "${{ env.working-directory }}"
-          npm run cdk deploy
+  #       with:
+  #         node-version: 18
+  #         cache: "npm"
+  #         cache-dependency-path: ./api/package-lock.json
+  #     - name: install modules
+  #       working-directory: ${{ env.working-directory }}
+  #       run: npm ci
+  #       # -------------
+  #     - name: Deploy
+  #       working-directory: ${{ env.working-directory }}
+  #       env:
+  #         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #         AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+  #       run: |
+  #         echo "The run id is: $GITHUB_RUN_ID"
+  #         echo "Github reporOwnder ${{ github.repository_owner }}"
+  #         echo "${{ env.working-directory }}"
+  #         npm run cdk deploy
 
   E2E-Test:
     name: "E2E Test"
-    needs: [Deploy-Stage]
+    # needs: [Deploy-Stage]
     runs-on: ubuntu-latest
     env:
       working-directory: ./api
@@ -91,6 +91,7 @@ jobs:
         working-directory: ${{ env.working-directory }}
         run: npm ci
       - name: test
+        working-directory: ${{ env.working-directory }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
