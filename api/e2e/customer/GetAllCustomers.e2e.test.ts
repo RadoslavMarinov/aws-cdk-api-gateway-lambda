@@ -31,7 +31,6 @@ describe("Get All customers API endpoint", () => {
     expect(response.$metadata.httpStatusCode).toBe(200);
     const res = await fetch(`${apiUrl}/customers`).then(r=>r.json())
 
-    console.log(`👉 >>> res = `, res);
     expect(Array.isArray(res)).toBe(true);
   });
 });
