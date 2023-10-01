@@ -3,7 +3,6 @@ import {
   CloudFormationClient,
   ListExportsCommand,
 } from "@aws-sdk/client-cloudformation"; // ES Modules import
-import { AwsCredentialIdentity } from "@aws-sdk/types";
 import { getCredentialsFromCredFiles } from "./utils/credentials.util";
 
 const input = {
@@ -25,9 +24,14 @@ describe("Get All customers API endpoint", () => {
     const command = new ListExportsCommand({});
     const response = await cfnClient.send(command);
 
-    const apiUrl = response.Exports?.find(x => x.Name === "apiUrl");
-    expect(apiUrl?.Value).toBeDefined();
+    const apiUrlExport = response.Exports?.find(x => x.Name === "apiUrl");
+    const apiUrl = apiUrlExport?.Value
+    expect(apiUrl).toBeDefined();
 
     expect(response.$metadata.httpStatusCode).toBe(200);
+    const res = await fetch(`${apiUrl}/customers`).then(r=>r.json())
+
+    console.log(`👉 >>> res = `, res);
+    expect(Array.isArray(res)).toBe(true);
   });
 });
