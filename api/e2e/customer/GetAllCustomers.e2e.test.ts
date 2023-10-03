@@ -29,7 +29,7 @@ describe("Get All customers API endpoint", () => {
     expect(apiUrl).toBeDefined();
 
     expect(response.$metadata.httpStatusCode).toBe(200);
-    const res = await fetch(`${apiUrl}/customers`).then(r=>r.json())
+    const res = await fetch(`${apiUrl}`).then(r=>r.json())
 
     expect(Array.isArray(res)).toBe(true);
   });
